@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FraudGuard AI | Dashboard</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="{% static 'transactions/css/webpage.css' %}">
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>FraudGuard AI</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#overview" class="nav-link active">
+                    <i class="fa-solid fa-house"></i> Overview
+                </a>
+                <a href="#transactions" class="nav-link">
+                    <i class="fa-solid fa-list-check"></i> Transactions
+                </a>
+                <a href="#behavior" class="nav-link">
+                    <i class="fa-solid fa-user-secret"></i> User Behavior
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                {% if user.is_authenticated %}
+                <div class="user-info">
+                    <p><i class="fa-solid fa-circle-user"></i> {{ user.username }}</p>
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-btn">Logout</button>
+                    </form>
+                </div>
+                {% else %}
+                <div class="user-info">
+                    <a href="{% url 'login' %}" class="login-link">
+                        <i class="fa-solid fa-right-to-bracket"></i> Login
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </aside>
+
+        <main class="main-content">
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'transactions/js/dashboard.js' %}"></script>
+</body>
+
+</html>

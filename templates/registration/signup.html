@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | FraudGuard AI</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Orbitron:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'transactions/css/webpage.css' %}">
+</head>
+
+<body class="auth-body">
+
+    <canvas id="neural-canvas"></canvas>
+
+    <a href="{% url 'home' %}" class="back-home"><i class="fa-solid fa-arrow-left"></i> Home</a>
+
+    <div class="auth-card">
+        <div class="auth-header">
+            <i class="fa-solid fa-user-shield"></i>
+            <h2>Create Account</h2>
+            <p>Start detecting fraud today.</p>
+        </div>
+
+        <form method="post" id="signup-form">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+
+                <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.id_for_label }}"
+                    placeholder="{{ field.label }}"
+                    style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; border-radius: 8px; outline: none; margin-top: 5px;">
+
+                {% if field.help_text %}
+                <small style="color: #666; font-size: 0.75rem; display: block; margin-top: 5px; line-height: 1.2;">{{
+                    field.help_text|safe }}</small>
+                {% endif %}
+
+                {% for error in field.errors %}
+                <p style="color: #ff2a6d; font-size: 0.8rem; margin-top: 5px;">
+                    <i class="fa-solid fa-circle-exclamation"></i> {{ error }}
+                </p>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary btn-full"
+                style="width: 100%; padding: 12px; background: #00f2ff; color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; margin-top: 10px; font-family: 'Orbitron', sans-serif;">
+                Create Account
+            </button>
+        </form>
+        <div class="auth-footer">
+            <p>Already a member? <a href="{% url 'login' %}">Login here</a></p>
+        </div>
+    </div>
+
+    <script src="{% static 'transactions/js/auth.js' %}"></script>
+</body>
+
+</html>
