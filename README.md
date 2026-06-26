@@ -82,26 +82,57 @@ Dashboard statistics include:
 # 📂 Project Structure
 
 ```text
-FraudGuard-AI/
-│
-├── fraudguard/
-│   ├── settings.py
-│   ├── urls.py
-│
-├── dashboard/
-│   ├── models.py
-│   ├── views.py
-│   ├── templates/
-│   ├── static/
-│
-├── uploads/
-├── ml_model/
-│   ├── train_model.py
-│   ├── fraud_model.pkl
-│
-├── db.sqlite3
-├── manage.py
-└── requirements.txt
+AI_Model_for_Flagging_Suspicious_Transaction/
+├── .env                              # Environment variables configuration
+├── dataset.csv                       # Project-wide raw transactions dataset
+├── db.sqlite3                        # SQLite local database
+├── manage.py                         # Django management script
+├── poster.html                       # HTML project poster/presentation file
+├── requirements.txt                  # Python dependencies
+├── test_model.py                     # Independent script to test prediction engine
+├── fraud_detection_system/           # Main Django project configuration directory
+│   ├── __init__.py
+│   ├── settings.py                   # Django project settings
+│   ├── urls.py                       # Global URL routing
+│   └── wsgi.py                       # WSGI entry-point for servers
+└── transactions/                     # Main Django application directory
+    ├── __init__.py
+    ├── admin.py                      # Django admin configuration
+    ├── apps.py                       # App configuration metadata
+    ├── models.py                     # Database models (Transaction, Profile, etc.)
+    ├── tests.py                      # Unit tests
+    ├── urls.py                       # Application-specific URL routing
+    ├── views.py                      # Application views & API endpoint logic
+    ├── migrations/                   # Database migrations directory
+    │   ├── 0001_initial.py
+    │   └── __init__.py
+    ├── ml_engine/                    # Machine Learning engine
+    │   ├── __init__.py
+    │   ├── dataset.csv               # Local copy of the dataset for training
+    │   ├── model_v1.pkl              # Serialized trained model (Pickle format)
+    │   ├── predictor.py              # Logic to load model and predict status
+    │   ├── retrain_model.py          # Script to retrain/update model
+    │   └── train_model.py            # Initial training pipeline script
+    ├── static/                       # Static assets
+    │   └── transactions/
+    │       ├── css/
+    │       │   ├── dashboard.css     # Dashboard UI styles
+    │       │   ├── style.css         # Common/global styles
+    │       │   └── webpage.css       # Main landing page styles
+    │       └── js/
+    │           ├── auth.js           # Authentication handler scripts
+    │           ├── dashboard.js      # Dashboard dynamic features and charts
+    │           ├── script.js         # Common utility scripts
+    │           └── webpage.js        # Main landing page animations/logic
+    └── templates/                    # HTML templates
+        ├── registration/
+        │   ├── login.html            # User login page
+        │   └── signup.html           # User signup/registration page
+        └── transactions/
+            ├── base.html             # Base layout template
+            ├── dashboard.html        # Main analytics & transaction dashboard
+            └── webpage.html          # Public landing/presentation page
+
 ```
 
 ---
